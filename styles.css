@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  color-scheme: light dark;
+  --dark-bg-color: rgb(9 60 123);
+  --light-bg-color: rgb(214 231 252);
+  --dark-hero-logo: url(assets/images/dark/logo.png);
+  --light-hero-logo: url(assets/images/light/logo.png);
+  --headings-font: "Bree Serif", serif;
+  --text-font: "Raleway", sans-serif;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-color: var(--light-bg-color);
+    --shadow-color: var(--dark-bg-color);
+    --hero-logo: var(--light-hero-logo);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: var(--dark-bg-color);
+    --shadow-color: var(--light-bg-color);
+    --hero-logo: var(--dark-hero-logo);
+  }
+}
+
+@supports (color-scheme: light dark) {
+  :root {
+    --bg-color: light-dark(var(--light-bg-color), var(--dark-bg-color));
+    --shadow-color: light-dark(var(--dark-bg-color), var(--light-bg-color));
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  transition: background-color 1s ease-in-out;
+}
+
+body {
+  background-color: var(--bg-color);
+  line-height: 1.5;
+  font-size: 12pt;
+}
+
+@supports (animation-timeline: scroll()) {
+  @keyframes animate-header {
+    from {
+      background-position: 50% 10%;
+    }
+
+    to {
+      background-position: left center;
+      background-size: 9vh;
+      height: 10vh;
+    }
+  }
+
+  @keyframes animate-header-img {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes add-shadow {
+    from {
+      box-shadow: none;
+    }
+
+    to {
+      box-shadow: 0 5px 5px -3px var(--shadow-color);
+    }
+  }
+
+  @keyframes animate-name {
+    to {
+      top: 5vh;
+      right: 2.5rem;
+      transform: translate(0%, -50%);
+      font-size: 4rem;
+    }
+  }
+
+  body {
+    padding-top: 100vh;
+    padding-top: 100dvh;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    font-family: var(--text-font);
+    color: var(--shadow-color);
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    animation-name: animate-header, add-shadow;
+    animation-range: 0vh 90vh, 80vh 90vh;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+
+  header h1 {
+    animation: animate-name linear forwards;
+    animation-range: 0vh 90vh;
+  }
+
+  header>div {
+    animation: animate-header-img linear forwards;
+    animation-range: 0vh 90vh;
+  }
+  
+  header,
+  header>div,
+  header>h1 {
+    animation-timeline: scroll();
+  }
+}
+
+header {
+  height: 100vh;
+  width: 100%;
+  background-color: var(--bg-color);
+  background-image: var(--hero-logo);
+  background-repeat: no-repeat;
+  background-size: 80vmin;
+}
+
+header>div {
+  height: 100%;
+  width: 100%;
+  background-image: url(assets/images/background.png);
+  background-position: bottom center;
+  background-size: 100% 50%;
+  background-repeat: no-repeat;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--headings-font);
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  hyphens: auto;
+  margin-bottom: 2em;
+}
+
+header h1 {
+  font-size: 5rem;
+  position: absolute;
+  top: 25vmax;
+  right: 50%;
+  transform: translateX(50%);
+}
