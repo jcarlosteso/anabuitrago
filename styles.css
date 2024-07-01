@@ -9,6 +9,9 @@
   --light-hero-logo: url(assets/images/light/logo.png);
   --headings-font: "Bree Serif", serif;
   --text-font: "Raleway", sans-serif;
+  --header-collapsed-height: 6vh;
+  --header-animation-range-max: calc(100vh - var(--header-collapsed-height));
+  --shadow-animation-range-min: calc(var(--header-animation-range-max) - 10vh);
 }
 
 @media (prefers-color-scheme: light) {
@@ -60,8 +63,8 @@ body {
 
     to {
       background-position: left center;
-      background-size: 9vh;
-      height: 10vh;
+      background-size: calc(var(--header-collapsed-height) * .95) auto;
+      height: var(--header-collapsed-height);
     }
   }
 
@@ -83,10 +86,10 @@ body {
 
   @keyframes animate-name {
     to {
-      top: 5vh;
+      top: calc(var(--header-collapsed-height) * .5);
       right: 2.5rem;
       transform: translate(0%, -50%);
-      font-size: 4rem;
+      font-size: 3.5rem;
     }
   }
 
@@ -136,6 +139,7 @@ header {
   background-image: var(--hero-logo);
   background-repeat: no-repeat;
   background-size: 80vmin;
+  background-origin: border-box;
 }
 
 header>div {
